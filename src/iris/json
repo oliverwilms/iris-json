@@ -1,0 +1,20 @@
+ClassMethod Test() As %Status
+{
+	Set dynObj = {"operation":"create","transactionNumber":"36C44224F50013","vendor":"YNGKKQWQLKC9","formType":"3","inventoryDistributionPoint":"442-C-TOTALSUPPLY SUPPORT","transactionType":"order","lineItems":[{"quantity":20,"unitOfMeasure":"CA","itemMasterFileNo":"9436"}]}
+	
+	Set lineItemsArray = dynObj.%Get("lineItems")
+	zw lineItemsArray
+	Set iter = lineItemsArray.%GetIterator()
+	while iter.%GetNext(.key, .dobjLineItem) {
+		// element:0=/1@%Library.DynamicObject/
+		// write "element:"_key_"=/"_value_"/  "
+		Set item = dobjLineItem.itemMasterFileNo
+		Set qty = dobjLineItem.quantity
+		Set uom = dobjLineItem.unitOfMeasure
+	}
+	//Write dynObj.lineItems(1).itemMasterFileNo
+	Write item,!
+	Write qty,!
+	Write uom,!
+	Quit 1
+}
