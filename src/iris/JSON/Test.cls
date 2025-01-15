@@ -44,7 +44,6 @@ ClassMethod Iterate(obj As %DynamicAbstractObject, level = 0, path = "obj")
     }
 }
 
-}
 /*
 Output from running Test method:
 
@@ -97,3 +96,23 @@ Value:
     Path: obj.d.%GetAt(2)
     Value: 7
 */
+/// https://community.intersystems.com/post/single-operation-concatenate-2-dynamicarrays
+ClassMethod ConcatArrays(pArgs...) As %DynamicArray
+{
+    //set outArray = ##class(%DynamicArray).%New()
+    Set outArray = []
+    for i=1:1:pArgs {
+        set arg = pArgs(i)
+        if ($IsObject(arg) && arg.%IsA("%DynamicArray")) {
+            set iter = arg.%GetIterator()
+            while iter.%GetNext(.key, .value) {
+                do outArray.%Push(value)
+            }
+        } else {
+            do outArray.%Push(arg)
+        }
+    }
+    return outArray
+}
+
+}
